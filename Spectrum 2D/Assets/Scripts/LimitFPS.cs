@@ -4,11 +4,6 @@ public class LimitFPS : MonoBehaviour
 {
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        Application.targetFrameRate = 60;
     }
 }
