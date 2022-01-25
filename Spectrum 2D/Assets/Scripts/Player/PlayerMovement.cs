@@ -19,6 +19,8 @@ public class PlayerMovement : Physics2DObject
 	public bool orientToDirection = false;
 	[Tooltip("The direction that will face the player")]
 	public Enums.Directions lookAxis = Enums.Directions.Up;
+	[Tooltip("The direction that will face the player")]
+	public bool twoSideFlipping = false;
 
 	private Vector2 movement, cachedDirection;
 	private float moveHorizontal;
@@ -52,15 +54,32 @@ public class PlayerMovement : Physics2DObject
 
 		movement = new Vector2(moveHorizontal, moveVertical);
 
-		//rotate the GameObject towards the direction of movement
-		//the axis to look can be decided with the "axis" variable
+		// Rotate the GameObject towards the direction of movement
+		// the axis to look can be decided with the "axis" variable
 		if (orientToDirection)
 		{
 			if (movement.sqrMagnitude >= 0.01f)
 			{
 				cachedDirection = movement;
-			}
+            }
 			Utils.SetAxisTowards(lookAxis, transform, cachedDirection);
+		}
+
+        if (twoSideFlipping)
+        {
+			if (movement.sqrMagnitude >= 0.01f)
+			{
+				cachedDirection = movement;
+			}
+
+            if (cachedDirection.x < 0)
+            {
+				GetComponent<SpriteRenderer>().flipX = true;
+            } 
+			else if (cachedDirection.x > 0) 
+			{
+				GetComponent<SpriteRenderer>().flipX = false;
+			}
 		}
 	}
 
