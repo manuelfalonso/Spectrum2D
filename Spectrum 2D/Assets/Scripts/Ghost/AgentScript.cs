@@ -6,9 +6,11 @@ public class AgentScript : MonoBehaviour
     [SerializeField] private Transform _target;
 
     [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _minDistanceFromPlayer = 0.5f;
     [SerializeField] private bool _isHunting = false;
 
     private NavMeshAgent _agent;
+    private Vector3 _distanceToPlayer;
 
     void Start()
     {
@@ -25,9 +27,16 @@ public class AgentScript : MonoBehaviour
 
     private void Update()
     {
-        if (_isHunting)
+        _distanceToPlayer = _target.position - transform.position;
+        if (_isHunting && _distanceToPlayer.magnitude < _minDistanceFromPlayer)
         {
             _agent.SetDestination(_target.position);
         }
+    }
+
+    public void TriggerHunt(GameObject target)
+    {
+        _isHunting = !_isHunting;
+        _target = target.transform;
     }
 }
