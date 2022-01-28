@@ -2,13 +2,5 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    [SerializeField] private string _name;
 }

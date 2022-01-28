@@ -47,6 +47,11 @@ public class GhostController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
+
+        if (!_target)
+        {
+            _target = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     void Update()
