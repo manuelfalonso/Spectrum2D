@@ -7,6 +7,8 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Wander : Physics2DObject
 {
+	public bool IsWandering = false;
+
 	[Header("Movement")]
 
 	public float speed = 1f;
@@ -23,7 +25,7 @@ public class Wander : Physics2DObject
 	private Vector3 startingPoint;
 
 	// Start is called at the beginning of the game
-	private void Start()
+	private void OnEnable()
 	{
 		// We don't want directionChangeInterval to be 0, so we force it to a
 		// minimum value ;)
@@ -39,8 +41,8 @@ public class Wander : Physics2DObject
 		StartCoroutine(ChangeDirection());
 	}
 
-	// Calculates a new direction
-	private IEnumerator ChangeDirection()
+    // Calculates a new direction
+    private IEnumerator ChangeDirection()
 	{
 		while (true)
 		{
@@ -74,6 +76,9 @@ public class Wander : Physics2DObject
 	// FixedUpdate is called every frame when the physics are calculated
 	private void FixedUpdate()
 	{
-		rigidbody2D.AddForce(direction * speed);
+        if (IsWandering)
+        {
+			rigidbody2D.AddForce(direction * speed);
+        }
 	}
 }

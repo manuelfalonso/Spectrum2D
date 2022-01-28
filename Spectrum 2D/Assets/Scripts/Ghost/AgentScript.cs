@@ -3,11 +3,12 @@ using UnityEngine.AI;
 
 public class AgentScript : MonoBehaviour
 {
+    public bool IsTargeting = false;
+
     [SerializeField] private Transform _target;
 
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _minDistanceFromPlayer = 0.5f;
-    [SerializeField] private bool _isHunting = false;
 
     private NavMeshAgent _agent;
     private Vector3 _distanceToPlayer;
@@ -27,16 +28,21 @@ public class AgentScript : MonoBehaviour
 
     private void Update()
     {
-        _distanceToPlayer = _target.position - transform.position;
-        if (_isHunting && _distanceToPlayer.magnitude < _minDistanceFromPlayer)
+        if (IsTargeting)
         {
-            _agent.SetDestination(_target.position);
-        }
-    }
+            if (_target)
+            {
+                _distanceToPlayer = _target.position - transform.position;
 
-    public void TriggerHunt(GameObject target)
-    {
-        _isHunting = !_isHunting;
-        _target = target.transform;
+                if (_distanceToPlayer.magnitude > _minDistanceFromPlayer)
+                {
+                    _agent.SetDestination(_target.position);
+                }
+            }
+        }
+        else
+        {
+            _agent.ResetPath();
+        }
     }
 }

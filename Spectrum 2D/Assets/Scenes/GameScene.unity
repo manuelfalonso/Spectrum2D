@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808550719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: -10}
+  m_LocalPosition: {x: -1, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1324011214}
@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 859421411}
   - component: {fileID: 859421413}
   - component: {fileID: 859421414}
+  - component: {fileID: 859421415}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -533,6 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody2D: {fileID: 0}
+  IsWandering: 0
   speed: 1
   directionChangeInterval: 3
   keepNearStartingPoint: 1
@@ -675,10 +677,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299e539c2c9587a4bbda242fbe69c3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsTargeting: 0
   _target: {fileID: 1283949072}
-  _maxSpeed: 1
+  _maxSpeed: 2
   _minDistanceFromPlayer: 0.5
-  _isHunting: 0
 --- !u!95 &859421412
 Animator:
   serializedVersion: 3
@@ -710,10 +712,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411775f61c386b4429e875bcecb7efd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _triggerHunt: {fileID: 11400000, guid: 8a88fb5c8f80ec8409b4cdaacbdb5624, type: 2}
-  _rangeOfHunt: 1
-  _timeOfHunt: 1
+  _triggerStartHunt: {fileID: 11400000, guid: 8a88fb5c8f80ec8409b4cdaacbdb5624, type: 2}
+  _triggerFinishHunt: {fileID: 11400000, guid: 9a5cc90d84a793d41a89a77fd6e1bb18, type: 2}
+  _target: {fileID: 1283949068}
+  _rangeOfHunt: 3
+  _timeOfHunt: 10
+  _chanceOfHunt: 0.3
   _isHunting: 0
   _isVisible: 0
 --- !u!114 &859421414
@@ -734,7 +738,35 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 859421413}
         m_TargetAssemblyTypeName: GhostController, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: StartHunt
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &859421415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859421404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a385142fa12b6a45a7843a7514532bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 9a5cc90d84a793d41a89a77fd6e1bb18, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 859421413}
+        m_TargetAssemblyTypeName: GhostController, Assembly-CSharp
+        m_MethodName: FinishHunt
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -892,7 +924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217575566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: -10}
+  m_LocalPosition: {x: -1, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1117,7 +1149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283949068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 346883295}

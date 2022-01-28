@@ -3,16 +3,28 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
 public class GhostController : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private GameEventSO _triggerStartHunt;
+    [SerializeField] private GameEventSO _triggerFinishHunt;
+
+    [Header("Ghost Hunt Parameters")]
     [SerializeField] private GameObject _target;
-    [SerializeField] private GameEventSO _triggerHunt;
+
     [SerializeField] private float _rangeOfHunt = 1f;
     [SerializeField] private float _timeOfHunt = 5f;
+    [Range(0f,1f)]
+    [SerializeField] private float _chanceOfHunt = .3f;
+
+    [Header("Current State")]
     [SerializeField] private bool _isHunting = false;
+    [SerializeField] private bool _isVisible = false;
 
     private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
 
-    [SerializeField] private bool _isVisible = false;
+    private float _time = 0f;
+    private float _timeToCheckHunt = 1f;
+
     public bool IsVisible { 
         get { return _isVisible; } 
         set 
@@ -39,28 +51,8 @@ public class GhostController : MonoBehaviour
 
     void Update()
     {
-
-
-        // false hunting.no visible
-        if (!_isHunting)
-        {
-            IsVisible = false;
-        }
-        // true make Visible. if Player inside of range, target him. If touch kill him.
-        else
-        {
-            IsVisible = true;
-            Vector3 targetDistance = _target.transform.position - transform.position;
-            if (targetDistance.magnitude <= _rangeOfHunt)
-            {
-                // Follow target;
-            }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            _triggerHunt.Raise();
-        }
+        CheckHunt();
+        CheckState();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -75,10 +67,78 @@ public class GhostController : MonoBehaviour
                 _isHunting = false;
             }
         }
-    }    
+    }
 
-    public void Test()
+    private void CheckHunt()
     {
-        Debug.Log("Hello World");
+        _time += Time.deltaTime;
+
+        if (_time > _timeToCheckHunt)
+        {
+            if (_isHunting)
+            {
+                if (_time > _timeOfHunt)
+                {
+                    _isHunting = false;
+                    _triggerFinishHunt.Raise();
+                    _time = 0f;
+                }
+            }
+            else
+            {
+                float randomChance = Random.Range(0f, 1f);
+
+                if (randomChance < _chanceOfHunt)
+                {
+                    _isHunting = true;
+                    _triggerStartHunt.Raise();
+                }
+                _time = 0f;
+            }
+        }
+    }
+
+    private void CheckState()
+    {
+        // false hunting.no visible
+        if (!_isHunting)
+        {
+            IsVisible = false;
+            GetComponent<AgentScript>().IsTargeting = false;
+            GetComponent<Wander>().IsWandering = true;
+        }
+        // true make Visible. if Player inside of range, target him. If touch kill him.
+        else
+        {
+            IsVisible = true;
+
+            if (_target)
+            {
+                Vector3 targetDistance = _target.transform.position - transform.position;
+
+                if (targetDistance.magnitude <= _rangeOfHunt)
+                {
+                    // Follow target;
+                    GetComponent<AgentScript>().IsTargeting = true;
+                    GetComponent<Wander>().IsWandering = false;
+                }
+                else
+                {
+                    // Wander
+                    GetComponent<AgentScript>().IsTargeting = false;
+                    GetComponent<Wander>().IsWandering = true;
+                }
+            }
+        }
+    }
+
+    public void StartHunt()
+    {
+        Debug.Log("Start Hunt");
+    }
+
+    public void FinishHunt()
+    {
+        Debug.Log("Finish Hunt");
     }
 }
