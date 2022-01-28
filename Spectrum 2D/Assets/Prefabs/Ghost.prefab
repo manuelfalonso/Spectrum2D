@@ -220,9 +220,9 @@ MonoBehaviour:
   _triggerStartHunt: {fileID: 11400000, guid: 8a88fb5c8f80ec8409b4cdaacbdb5624, type: 2}
   _triggerFinishHunt: {fileID: 11400000, guid: 9a5cc90d84a793d41a89a77fd6e1bb18, type: 2}
   _target: {fileID: 0}
-  _rangeOfHunt: 3
-  _timeOfHunt: 10
-  _chanceOfHunt: 0.3
+  _rangeOfHunt: 5
+  _timeOfHunt: 15
+  _chanceOfHunt: 0.15
   _isHunting: 0
   _isVisible: 0
 --- !u!114 &8476129431893707448
