@@ -6062,11 +6062,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6074,19 +6074,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071066
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.70710695
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6098,7 +6098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3711375999840397220, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5894336577144589368, guid: b52bba703958be44e9dff7bcd3653cde, type: 3}
       propertyPath: m_DynamicOccludee
